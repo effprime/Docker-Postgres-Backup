@@ -1,23 +1,23 @@
 version: '3'
 
-  services:  
+services:  
     pgbackups:
-      container_name: ${CONTAINER_NAME}
-      image: prodrigestivill/postgres-backup-local
-      restart: always
-      environment:
-        - POSTGRES_HOST=${DB_HOST}
-        - POSTGRES_HOST=${DB_PORT}
-        - POSTGRES_DB=${DB_LIST} 
-        - POSTGRES_USER=${DB_USER}
-        - POSTGRES_PASSWORD=${DB_PASSWORD}
-        - POSTGRES_EXTRA_OPTS=-Z9 --schema=public --blobs
-        - SCHEDULE=@every 0h30m00s
-        - BACKUP_KEEP_DAYS=${BACKUP_KEEP_DAYS}
-        - BACKUP_KEEP_WEEKS=${BACKUP_KEEP_WEEKS}
-        - BACKUP_KEEP_MONTHS=${BACKUP_KEEP_MONTHS}
-        - HEALTHCHECK_PORT=81
-      ports:
-        - ${HEALTH_HOST_PORT}:81
-      volumes:
-        - ${BACKUPS_DIR}:/backups
+        container_name: ${CONTAINER_NAME}
+        image: prodrigestivill/postgres-backup-local
+        restart: always
+        environment:
+            - POSTGRES_HOST=${DB_HOST}
+            - POSTGRES_PORT=${DB_PORT}
+            - POSTGRES_DB=${DB_LIST} 
+            - POSTGRES_USER=${DB_USER}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+            - POSTGRES_EXTRA_OPTS=-Z9 --schema=public --blobs
+            - SCHEDULE=@every 0h30m00s
+            - BACKUP_KEEP_DAYS=${BACKUP_KEEP_DAYS}
+            - BACKUP_KEEP_WEEKS=${BACKUP_KEEP_WEEKS}
+            - BACKUP_KEEP_MONTHS=${BACKUP_KEEP_MONTHS}
+            - HEALTHCHECK_PORT=81
+        ports:
+            - ${HEALTH_HOST_PORT}:81
+        volumes:
+            - ${BACKUPS_DIR}:/backups
